@@ -1,8 +1,8 @@
 /*!*****************************************************************************
  * @file    MCP251XFD.c
  * @author  Fabien 'Emandhal' MAILLY
- * @version 1.0.6
- * @date    16/04/2023
+ * @version 1.0.8
+ * @date    16/03/2025
  * @brief   MCP251XFD driver
  * @details
  * The MCP251XFD component is a CAN-bus controller supporting CAN2.0A, CAN2.0B
@@ -1779,7 +1779,7 @@ eERRORRESULT MCP251XFD_SetFIFOinterruptConfiguration(MCP251XFD *pComp, eMCP251XF
   if (name == MCP251XFD_TXQ) Address = RegMCP251XFD_CiTXQCON_CONFIG;                                     // If it's the TXQ then select its address
 
   //--- Read the FIFO's register ---
-  interruptFlags &= MCP251XFD_FIFO_ALL_INTERRUPTS_FLAGS;
+  interruptFlags = (eMCP251XFD_FIFOIntFlags)(interruptFlags & MCP251XFD_FIFO_ALL_INTERRUPTS_FLAGS);
   Error = MCP251XFD_ReadSFR8(pComp, Address, &Config);                                                   // Read actual configuration of the FIFO's register
   if (Error != ERR_OK) return Error;                                                                     // If there is an error while calling MCP251XFD_ReadSFR8() then return the error
 
